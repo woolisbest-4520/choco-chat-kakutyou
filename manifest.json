@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Choco Chat Customizer",
+  "version": "1.0",
+  "description": "チョコchatのUIをモダンにカスタマイズします",
+  "content_scripts": [
+    {
+      "matches": ["https://bbs-be-ta2-bl9w.onrender.com/*"],
+      "css": ["style.css"],
+      "js": ["content.js"]
+    }
+  ]
+}
