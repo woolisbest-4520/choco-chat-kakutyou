@@ -3,53 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    body { font-family: sans-serif; padding: 15px; background: #f4f4f9; }
-    h2 { font-size: 16px; color: #333; }
-    .control-group { margin-bottom: 20px; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    label { display: block; font-size: 12px; margin-bottom: 5px; color: #666; }
-    select, input { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd; }
-    button { width: 100%; padding: 10px; background: #5c67f2; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #4a54e1; }
+    body { font-family: sans-serif; padding: 15px; background: #eceff1; }
+    .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    h2 { font-size: 14px; margin-top: 0; color: #444; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+    label { display: block; font-size: 12px; margin: 10px 0 5px; color: #666; }
+    input[type="color"] { width: 100%; height: 40px; border: none; cursor: pointer; border-radius: 4px; }
+    .hint { font-size: 11px; color: #888; margin-top: 10px; line-height: 1.4; }
   </style>
 </head>
 <body>
-  <h2>UIカスタマイズ</h2>
-  
-  <div class="control-group">
-    <label>メインカラー変更</label>
-    <input type="color" id="mainColor" value="#3498db">
+  <div class="card">
+    <h2>メッセージ配置設定</h2>
+    <label>自分のメッセージの色 (左側)</label>
+    <input type="color" id="myMsgColor" value="#3498db">
+    
+    <div class="hint">
+      ※この設定を保存すると、自分の送信したメッセージが強制的に<b>左側</b>へ配置され、指定した色になります。
+    </div>
   </div>
-
-  <div class="control-group">
-    <label>メッセージの角丸</label>
-    <input type="range" id="borderRadius" min="0" max="25" value="15">
-  </div>
-
-  <div class="control-group">
-    <label>フォントサイズ</label>
-    <select id="fontSize">
-      <option value="14px">標準</option>
-      <option value="16px">大きめ</option>
-      <option value="12px">小さめ</option>
-    </select>
-  </div>
-
-  <button id="applyBtn">設定を保存して適用</button>
 
   <script>
-    const applyBtn = document.getElementById('applyBtn');
-    
-    applyBtn.addEventListener('click', () => {
-      const config = {
-        mainColor: document.getElementById('mainColor').value,
-        borderRadius: document.getElementById('borderRadius').value + 'px',
-        fontSize: document.getElementById('fontSize').value
-      };
-      
-      // Chromeのストレージに保存（content.jsがこれを読み取る）
-      chrome.storage.local.set({ chatConfig: config }, () => {
-        alert('設定を保存しました！ページをリロードするか、自動適用をお待ちください。');
+    const colorInput = document.getElementById('myMsgColor');
+
+    // 保存処理（変更のたびに自動保存）
+    colorInput.addEventListener('input', () => {
+      chrome.storage.local.set({ 
+        myMsgColor: colorInput.value 
       });
+    });
+
+    // 初期値の読み込み
+    chrome.storage.local.get(['myMsgColor'], (res) => {
+      if (res.myMsgColor) colorInput.value = res.myMsgColor;
     });
   </script>
 </body>
