@@ -1,13 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Choco Chat Customizer",
-  "version": "1.0",
-  "description": "チョコchatのUIをモダンにカスタマイズします",
+  "name": "Choco Chat Customizer Pro",
+  "version": "1.1",
+  "permissions": ["sidePanel", "storage", "activeTab"],
+  "host_permissions": ["https://bbs-be-ta2-bl9w.onrender.com/*"],
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "action": {
+    "default_title": "パネルを開く"
+  },
   "content_scripts": [
     {
       "matches": ["https://bbs-be-ta2-bl9w.onrender.com/*"],
-      "css": ["style.css"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "css": ["style.css"]
     }
   ]
 }
