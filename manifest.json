@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Choco Chat In-Page Customizer",
-  "version": "1.4",
+  "name": "Choco Chat Ultimate Customizer",
+  "version": "1.5",
   "permissions": ["storage"],
   "host_permissions": [
     "https://bbs-be-ta2-bl9w.onrender.com/*",
